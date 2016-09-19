@@ -10,6 +10,9 @@
 \usepackage{xcolor}
 \usepackage{circuitikz}
 \usepackage{graphicx}
+%\usepackage[margin=0.5in]{geometry}
+\usepackage[top=1in,bottom=1in]{geometry}
+
 \newcommand\showdiv[1]{\overline{\smash{\hstretch{.5}{)}\mkern-3.2mu\hstretch{.5}{)}}#1}}
 \newcommand\ph[1]{\textcolor{white}{#1}}
 
@@ -180,7 +183,6 @@
 }
 
 \begin{document}
-
 \title{Digital Logic Design: Homework 2}
 \author{Joshua Dong}
 \date{\today}
@@ -197,58 +199,179 @@
         \implicant{6}{14}{gray}
         \implicant{7}{6}{gray}
     \end{Karnaugh}
+    \\
+    The bolded minterms in the Karnaugh map
+    make their respective prime implicant essential.
+    Non-blue groups indicate options between multiple possible minterms.
+    \\
+    A minimum sum-of-products for f is
+    $f(a,b,c,d) = a'b'c' + a'd + b'cd + abd' + a'bc$.
+    The last term may be substituted with $bcd'$.
 \subsection{c)}
+    \begin{Karnaugh}
+        \contingut{1,X,X,X,1,0,1,0,1,X,{\bf 1},{\bf 1},{\bf 1},0,0,0}
+        \implicant{0}{8}{blue}
+        \implicantcostats{4}{6}{gray}
+        \implicant{2}{6}{gray}
+        \implicantdaltbaix{0}{10}{blue}
+        %\implicantdaltbaix{3}{11}{red}
+    \end{Karnaugh}
+    \\
+    The bolded minterms in the Karnaugh map
+    make their respective prime implicant essential.
+    Non-blue groups indicate options between multiple possible minterms.
+    \\
+    A minimum sum-of-products for f is
+    $f(a,b,c,d) = c'd' + b' + a'bd'$.
+    The last term may be substituted with $a'cd'$.
 
-\newpage
 
 \section{5.7}
 \subsection{b)}
+$f(a,b,c,d) = a'b' + a'c'd' + abc$.
 
 
 \section{5.9}
 \subsection{b)}
+$f(a,b,c,d)
+\\*
+= a'b'c'e' + ab'cd' + abe' + b'd'e + cde + a'b'cd
+\\*
+= (a + b' + c')
+(a' + d' + e' + c)
+(a' + b + e')
+(b + d' + e)
+(c' + d + e)
+(a + b' + d + e')$.
 
 
 \section{5.14}
 \subsection{d)}
+$f(a,b,c) = a'c' + bc$.
 \subsection{f)}
+$f(x,y,z) = z' + xy' + x'y$.
 
 
 \section{5.22}
 \subsection{a)}
+    \begin{Karnaugh}
+        \contingut{0,0,0,0,1,X,X,X,X,X,X,{\bf 1},1,1,1,0}
+        \implicant{8}{10}{blue}
+        \implicant{4}{13}{orange}
+        \implicant{12}{9}{yellow}
+        \implicantcostats{12}{10}{purple}
+        \implicantcostats{4}{14}{red}
+    \end{Karnaugh}
+    \\
+    The bolded minterms in the Karnaugh map
+    make their respective prime implicant essential.
+    \\
+    The minimum sum-of-products for f are
+    $ab' + bc' + bd'$, $ab' + ac' + bd'$.
+    \\
+    The prime implicants are circled in the graph above:
+    $ab', bc', bd', ac', ad'$
 \subsection{c)}
+    \begin{Karnaugh}
+        \contingut{0,{\bf 1},{\bf 1},0,{\bf 1},X,X,X,X,X,X,0,0,{\bf 1},{\bf 1},0}
+        \implicant{1}{9}{blue}
+        \implicant{4}{6}{blue}
+        \implicant{2}{10}{blue}
+    \end{Karnaugh}
+    \\
+    The bolded minterms in the Karnaugh map
+    make their respective prime implicant essential.
+    \\
+    The minimum sum-of-products for f are
+    $ab' + bc' + bd'$, $ab' + ac' + bd'$.
+    \\
+    The prime implicants are circled in the graph above:
+    $ab', bc', bd', ac', ad'$
 \subsection{e)}
+    \begin{Karnaugh}
+        \contingut{0,0,0,{\bf 1},{\bf 1},X,X,X,X,X,X,1,0,0,0,{\bf 1}}
+        \implicant{4}{6}{blue}
+        \implicant{8}{10}{gray}
+        \implicant{3}{11}{blue}
+    \end{Karnaugh}
+    \\
+    The bolded minterms in the Karnaugh map
+    make their respective prime implicant essential.
+    \\
+    The minimum sum-of-products for f is
+    $a'b + cd$.
+    \\
+    The prime implicants are circled in the graph above:
+    $a'b, cd, ab'$.
 \subsection{g)}
+    \begin{Karnaugh}
+        \contingut{X,X,X,0,1,X,X,X,X,X,X,0,0,0,0,{\bf 1}}
+        \implicant{7}{15}{blue}
+        \implicant{4}{6}{gray}
+        \implicant{0}{5}{gray}
+        \implicantcostats{0}{6}{gray}
+    \end{Karnaugh}
+    \\
+    The bolded minterms in the Karnaugh map
+    make their respective prime implicant essential.
+    \\
+    The minimum sum-of-products for f are
+    $bcd + a'b, bcd + a'c', bcd + a'd'$.
+    \\
+    The prime implicants are circled in the graph above:
+    $bcd, a'b, a'c', a'd'$.
 
 
 \section{5.25}
 \subsection{c)}
+    \begin{Karnaugh}
+        \contingut{{\bf 1},0,1,X,0,0,{\bf 1},0,X,1,X,0,0,0,0,0}
+    \end{Karnaugh}
+    \\
+    $f(a,b,c,d) = b'd' + ab'c' + a'cd'$.
 \subsection{d)}
+    \begin{Karnaugh}
+        \contingut{0,X,0,X,1,X,0,0,1,0,1,1,0,0,1,1}
+    \end{Karnaugh}
+    \\
+    $f(a,b,c,d) = a'bc' + ab'd' + ac$.
 
 
 \section{5.34}
-
+\subsection{a)}
     \begin{Karnaugh}
-        \contingut{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-       \implicant{0}{2}{red}
-       \implicant{5}{15}{purple}
-       \implicantdaltbaix[3pt]{3}{10}{blue}
-    \implicantcantons[2pt]{orange}
-       \implicantcostats{4}{14}{green}
+        \contingut{X,0,1,X,1,X,X,1,0,X,X,{\bf 1},X,0,1,X}
+        \implicant{3}{10}{blue}
+        \implicant{4}{6}{green}
+        \implicant{9}{11}{gray}
+        %\implicantdaltbaix[3pt]{3}{10}{blue}
+        %\implicantcantons[2pt]{orange}
+        \implicantcostats{0}{6}{green}
+        \implicantcostats{4}{14}{green}
     \end{Karnaugh}
-    %
-    \begin{Karnaughvuit}
-       \minterms{3,4}
-        \maxterms{0,1,6,7}
-       \indeterminats{2,5}
-       \implicant{3}{2}{green}
-       \implicant{4}{5}{}
-    \end{Karnaughvuit}
-    %
-    \begin{Karnaughquatre}
-        \minterms{1,2}
-       \maxterms{0,3}
-       \implicantsol{1}{green}
-       \implicantsol{2}{red}
-    \end{Karnaughquatre}
+\subsection{b)}
+    The prime implicants of $f$ are
+    $a'd', bd', a'b, c, ab'd$.
+\subsection{c)}
+    The minimum sum of products for $f(a,b,c,d)$ are
+    $a'b + c, bd' + c, a'd' + c$.
+\subsection{d)}
+    \begin{Karnaugh}
+        \contingut{X,1,0,X,0,X,X,0,1,X,X,0,X,1,0,X}
+        \implicant{1}{9}{green}
+        \implicant{1}{3}{gray}
+        \implicant{13}{15}{gray}
+        \implicantdaltbaix{0}{9}{green}
+        \implicant{12}{9}{green}
+        \implicantcostats{8}{10}{gray}
+        %%\implicantcantons[2pt]{orange}
+        %\implicantcostats{0}{6}{gray}
+        %\implicantcostats{4}{14}{gray}
+    \end{Karnaugh}
+    \\
+    The prime implicants of $f'$ are
+    $b'c', ac', ab'd', c'd, a'b'd, abd$.
+\subsection{f)}
+    The minimum sum of products for $f(a,b,c,d)$ are
+    $b'c' + ac', b'c' + c'd, ac' + c'd$.
 \end{document}
