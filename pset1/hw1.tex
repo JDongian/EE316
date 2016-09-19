@@ -1,0 +1,457 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{centernot}
+\usepackage{scalerel}
+\usepackage{stackengine}
+\usepackage{xcolor}
+\newcommand\showdiv[1]{\overline{\smash{\hstretch{.5}{)}\mkern-3.2mu\hstretch{.5}{)}}#1}}
+\newcommand\ph[1]{\textcolor{white}{#1}}
+
+
+\makeatletter
+% we use \prefix@<level> only if it is defined
+\renewcommand{\@seccntformat}[1]{%
+  \ifcsname prefix@#1\endcsname
+    \csname prefix@#1\endcsname
+  \else
+    \csname the#1\endcsname\quad
+  \fi}
+% define \prefix@section
+\newcommand\prefix@section{}
+\newcommand\prefix@subsection{}
+\makeatother
+
+\begin{document}
+
+\title{Digital Logic Design: Homework 1}
+\author{Joshua Dong}
+\date{\today}
+\maketitle
+
+Unless otherwise specified, all numbers are decimal.
+
+\section{1.4}
+\subsection{a)}
+$1457.11
+\\*
+= 1457 + 0.11
+\\*
+= (16 \cdot 91 + 1) + 0.11
+\\*
+= (16 \cdot (16 \cdot 5 + 11) + 1) + 0.11
+\\*
+= (16 \cdot (16 \cdot 5 + 11) + 1) +
+    (\frac{1}{16} \cdot 1.76)
+\\*
+= (16 \cdot (16 \cdot 5 + 11) + 1) +
+    (\frac{1}{16} \cdot (1 + \frac{1}{16} \cdot 12.16))$
+\\*
+Thus 1457.11$_{10}$ = 5B1.1C$_{16}$.
+
+\section{1.7}
+\subsection{b)}
+$-14 = 110010_2,\; -32 = 100000_2$ in 2's complement representation.
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&1&0&0&1&0 \\
++ &1&0&0&0&0&0 \\
+\hline
+ 1&0&1&0&0&1&0 \\
+\end{tabular}
+\\*
+The result, after discarding the carry from the sign bit, is positive. It is clear that there is an overflow.
+
+\subsection{c)}
+$-25 = 100111_2,\; 18 = 010010_2$ in 2's complement representation.
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&0&0&1&1&1 \\
++ &0&1&0&0&1&0 \\
+\hline
+  &1&1&1&0&0&1 \\
+\end{tabular}
+\\*
+There is no carry from the sign bit and there is no overflow.
+\\*
+Using 1's complement representation, $-25 = 100110_2,\; 18 = 010010_2$.
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&0&0&1&1&0 \\
++ &0&1&0&0&1&0 \\
+\hline
+  &1&1&1&0&0&0 \\
+\end{tabular}
+\\*
+There is no carry from the sign bit and there is no overflow.
+
+
+\section{1.8}
+If 2's complement is used, the system's range is
+$-2^7$ to $+(2^7 - 1)$, or $-128$ to $+127$.
+If 1's complement is used, the system's range is
+$-(2^7 - 1)$ to $+(2^7 - 1)$, or $-127$ to $+127$.
+
+
+\section{1.10}
+\subsection{a)}
+$1305.375
+\\*
+= 1305 + 0.375
+\\*
+= (16 \cdot 81 + 9) + 0.375
+\\*
+= (16 \cdot (16 \cdot 5 + 1) + 9) + 0.375
+\\*
+= (16 \cdot (16 \cdot 5 + 1) + 9) +
+    \frac{1}{16} \cdot 6$
+\\*
+Thus 1305.375$_{10}$ = 519.6$_{16}$.
+\\*
+Conversion to decimal is easy by converting each hexidecimal
+digit to its binary representation:
+\\*
+0101 0001 1001 . 0110
+\\*
+That is,
+519.6$_{16}$ = 010100011001.0110$_2$.
+
+\subsection{d)}
+$1644.875
+\\*
+= 1644 + 0.875
+\\*
+= (16 \cdot 102 + 12) + 0.875
+\\*
+= (16 \cdot (16 \cdot 6 + 6) + 12) + 0.875
+\\*
+= (16 \cdot (16 \cdot 6 + 6) + 12) +
+    \frac{1}{16} \cdot 14$
+\\*
+Thus 1644.875$_{10}$ = 66C.E$_{16}$.
+\\*
+Conversion to decimal is easy by converting each hexidecimal
+digit to its binary representation:
+\\*
+0110 0110 1100 . 1110
+\\*
+That is,
+66C.E$_{16}$ = 011001101100.1110$_2$.
+
+
+\section{1.19}
+\subsection{b)}
+Shown below is division with binary numbers:
+\\*
+\setstackgap{S}{1.5pt}
+\stackMath\def\stackalignment{r}
+\(
+\stackunder{%
+    1110 \stackon[1pt]{\showdiv{110000001}}{11011}%
+}{%
+    \Shortstack[l]{
+        {\underline{1110}}
+            \ph{}10100 {
+            \ph{1}\underline{1110}}
+                \ph{11}11000 {
+                \ph{111}\underline{1110}} %
+                    \ph{111}10101 {
+                    \ph{1111}\underline{1110}}
+                        \ph{11111}111}%
+}
+\)
+\\*
+\\*
+$14 \cdot 27 + 7 = 385$,
+\\*
+$1110_2 \cdot 11011_2 + 111_2 = 110000001_2$,
+\\*
+The answer of $11011_2$ is correct, with remainder $111_2$.
+
+
+\section{1.37}
+\subsection{a)}
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &0&1&0&0&1 \\
+- &1&1&0&1&0 \\
+\hline
+\end{tabular}
+\\*\\*
+We interpret this as 1's complement:
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &0&1&0&0&1 \\
++ &0&0&1&0&1 \\
+\hline
+  &0&1&1&1&0 \\
+\end{tabular}
+\\*\\*
+And as 2's complement:
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &0&1&0&0&1 \\
++ &0&0&1&1&0 \\
+\hline
+  &0&1&1&1&1 \\
+\end{tabular}
+\\*\\*
+No carry occurs on the sign bits, so there is no overflow.
+
+\subsection{c)}
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&0&1&1&0 \\
+- &0&1&1&0&1 \\
+\hline
+\end{tabular}
+\\*\\*
+We interpret this as 1's complement:
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&0&1&1&0 \\
++ &1&0&0&1&0 \\
+\hline
+ 1&0&1&0&0&0 \\
+\hline
+  &0&1&0&0&1 \\
+\end{tabular}
+\\*\\*
+And as 2's complement:
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&0&1&1&0 \\
++ &1&0&0&1&1 \\
+\hline
+ 1&0&1&0&0&1 \\
+\hline
+  &0&1&0&0&1 \\
+\end{tabular}
+\\*\\*
+There is overflow with both methods.
+
+\subsection{e)}
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&1&1&0&0 \\
+- &1&0&1&0&1 \\
+\hline
+\end{tabular}
+\\*\\*
+We interpret this as 1's complement:
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&1&1&0&0 \\
++ &0&1&0&1&0 \\
+\hline
+ 1&0&0&1&1&0 \\
+\hline
+  &0&0&1&1&1 \\ 
+\end{tabular}
+\\*\\*
+And as 2's complement:
+\\*
+\begin{tabular}{c@{\,}c@{\,}c@{\,}c@{\,}c@{\,}c}
+  &1&1&1&0&0 \\
++ &0&1&0&1&1 \\
+\hline
+ 1&0&0&1&1&1 \\
+\hline
+  &0&0&1&1&1 \\
+\end{tabular}
+\\*\\*
+There is no overflow.
+
+
+\section{2.3}
+\subsection{a)}
+$X'Y'Z + (X'Y'Z)' = 1X'Y'Z + 1(X'Y'Z)' = 1$, by the uniting theorem of boolean addition.
+\subsection{f)}
+$(A + BC) + (DE + F)(A + BC)' = (A + BC) + (DE + F)$, by the elimination theorem of boolean addition.
+
+
+\section{2.5}
+\subsection{a)}
+$(A + B)(C + B)(D' + B)(ACD' + E)
+\\*
+= (A(C + B) + B(C + B))(D' + B)(ACD' + E)
+\\*
+= (AC + AB + BC + B^2)(D' + B)(ACD' + E)
+\\*
+= (AC + B)(D' + B)(ACD' + E)
+\\*
+= (AC + B)(D'(ACD' + E) + B(ACD' + E))
+\\*
+= (AC + B)(AC(D')^2 + D'E + ABCD' + BE)
+\\*
+= (AC + B)(ACD' + BE + D'E)
+\\*
+= AC(ACD' + BE + D'E) + B(ACD' + BE + D'E)
+\\*
+= A^2C^2D' + ACBE + ACD'E + BACD' + B^2E + BD'E)
+\\*
+= ACD' + ACBE + ACD'E + BACD' + BE + BD'E)
+\\*
+= ACD' + BE
+$
+\subsection{b)}
+$(A' + B + C')(A' + C' + D)(B' + D')
+\\*
+= (A'(B' + D') + B(B' + D') + C'(B' + D'))(A' + C' + D)
+\\*
+= (A'B' + A'D' + BB' + BD' + C'B' + C'D')(A' + C' + D)
+\\*
+= (A'B' + A'D' + BD' + B'C' + C'D')(A' + C' + D)
+\\*
+= A'(A'B' + A'D' + BD' + B'C' + C'D') +
+C'(A'B' + A'D' + BD' + B'C' + C'D') +
+D(A'B' + A'D' + BD' + B'C' + C'D')
+\\*
+= A'A'B' + A'A'D' + A'BD' + A'B'C' + A'C'D' +
+C'A'B' + C'A'D' + C'BD' + C'B'C' + C'C'D' +
+DA'B' + DA'D' + DBD' + DB'C' + DC'D'
+\\*
+= A'B' + A'D' + A'BD' + A'B'C' + A'C'D' +
+A'B'C' + A'C'D' + BC'D' + B'C' + C'D' +
+A'B'D + 0 + 0 + B'C'D + 0
+\\*
+= A'B' + A'D' + B'C' + C'D'
+$
+
+\section{2.6}
+\subsection{a)}
+$AB + C'D'
+\\*
+= (AB + C')(AB + D')
+\\*
+= (A + C')(B + C')(A + D')(B + D')
+$
+\subsection{f)}
+$A + BC + DE
+\\*
+= (A + B)(A + C) + DE
+\\*
+= ((A + B)(A + C) + D)((A + B)(A + C) + E)
+\\*
+= ((A + B + D)(A + C + D))((A + B + E)(A + C + E))
+\\*
+= (A + B + D)(A + C + D)(A + B + E)(A + C + E)
+$
+
+
+\section{2.8}
+\subsection{a)}
+$[(AB)' + C'D]' = AB(C'D)' = AB(C + D') = ABC + ABD'
+$
+
+
+\section{2.9}
+\subsection{a)}
+$F = ((A + (A + B)')' + (A + B)')(A + (A + B)')'
+\\*
+= ((A'(A + B)) + (A'B'))(A + A'B')'
+\\*
+= ((A'(A + B)) + (A'B'))(A' + (A'B')')
+\\*
+= ((A'(A + B)) + (A'B'))(A' + A + B)
+\\*
+= ((A'(A + B)) + (A'B'))(1)
+\\*
+= (A'A + A'B + (A'B'))
+\\*
+= 0 + A'B + A'B'
+\\*
+= A'
+$
+\subsection{b)}
+$G = (((R + S + T)'P((R + S)'T))'T)'
+\\*
+= (R + S + T)'P((R + S)'T) + T'
+\\*
+= R'S'T'PR'S'T + T'
+\\*
+= PR'S'TT' + T'
+\\*
+= 0 + T'
+\\*
+= T'
+$
+
+
+\section{2.12}
+\subsection{a)}
+$(X + Y'Z) + (X + Y'Z)' = 1(X + Y'Z) + 1(X + Y'Z)' = 1$,
+by the unification theorem of boolean addition.
+\subsection{f)}
+$(V' + U + W) [(W + X) + Y + UZ'] + [(W + X) + UZ' + Y]
+\\*
+= (V' + U + W) [(W + X) + UZ' + Y] + [(W + X) + UZ' + Y]
+\\*
+= V' + U + W
+$,
+by the absorption theorem of boolean addition.
+
+\section{2.15}
+\subsection{a)}
+$f(A, B, C, D) = [A + (BCD)'][(AD)' + B(C' + A)]$
+\\*
+$dual(f)
+= [A(B + C + D)'] + [(A + D)'(B + C'A)]$
+\\*
+$complement(f)
+= [A'(B' + C' + D')'] + [(A' + D')'(B' + CA')]
+\\*
+= A'BCD + AD(B' + CA')$
+\\*
+
+
+\section{2.16}
+\subsection{a)}
+$f(A, B, C, D) = [A + (BCD)'][(AD)' + B(C' + A)]$
+\\*
+$dual(f)
+= [A(B + C + D)'] + [(A + D)'(B + C'A)]$
+
+\section{2.21}
+$
+\begin{array}{ccc|cccc}
+A&B&C&&F&G&H
+\\\hline
+1&1&1&&1&\mathbf{X}&1\\
+1&1&0&&0&\mathbf{0}&0\\
+1&0&1&&0&\mathbf{1}&1\\
+1&0&0&&0&\mathbf{0}&0\\
+0&1&1&&1&\mathbf{X}&1\\
+0&1&0&&0&\mathbf{1}&1\\
+0&0&1&&1&\mathbf{X}&1\\
+0&0&0&&0&\mathbf{0}&0
+\end{array}
+$
+\\*
+X represents an unspecified value in the above table.
+
+
+\section{2.22}
+\subsection{a)}
+$A'B' + A'CD + A'DE'
+\\*
+= A'(B' + CD + DE')
+\\*
+= A'((B' + C)(B' + D) + DE')
+\\*
+= A'((B' + C + DE')(B' + D + DE'))
+\\*
+= A'(B' + C + DE')(B' + D)
+\\*
+= A'(B' + C + D)(B' + C + E')(B' + D)
+\\*
+= A'(B' + D)(B' + C + E')
+$
+
+
+\section{2.24}
+\subsection{a)}
+$[(XY')' + (X' + Y)'Z]
+= (X' + Y) + (XY')Z
+= X' + Y + XY'Z
+$
+
+
+\end{document}
