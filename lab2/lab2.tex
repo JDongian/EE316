@@ -243,18 +243,22 @@ X
 Y
     \begin{Karnaugh}
         \contingut{0,1,0,1,0,1,x,x,0,1,1,0,0,1,x,x}
-        \implicantcostats{0}{6}{green}
-        \implicant{0}{8}{yellow}
-        \implicant{11}{11}{red}
+        %\implicantcostats{0}{6}{green}
+        %\implicant{0}{8}{yellow}
+        %\implicant{11}{11}{red}
+        \implicant{14}{10}{green}
+        \implicant{1}{7}{purple}
+        \implicant{1}{9}{red}
     \end{Karnaugh}
     \begin{Karnaugh}
         \contingut{0,0,0,0,0,0,x,x,0,0,1,1,0,0,x,x}
-        \implicantcostats{0}{6}{green}
-        \implicant{0}{8}{yellow}
-        \implicant{0}{6}{blue}
-        \implicant{0}{9}{purple}
+        \implicant{14}{10}{green}
+        \implicant{15}{10}{blue}
+        %\implicantcostats{0}{6}{green}
+        %\implicant{0}{6}{blue}
+        %\implicant{0}{9}{purple}
     \end{Karnaugh}
-    \\$Y = (A + B)(A + D)(B + E)(D + E)(A' + B' + D' + E')$.
+    \\$Y = A'BD + AB'E + AD'E + BDE'$.
 \\\\
 Z
     \begin{Karnaugh}
@@ -267,10 +271,12 @@ Z
     \end{Karnaugh}
     \\$Z = BE$
 
+\newpage
 \section{Gate Drawings}
-    \includegraphics{w}
-    \includegraphics{x}
-    \includegraphics{y}
-    \includegraphics{z}
+    \includegraphics{mult}
+
+\newpage
+\section{LogicAid}
+    \includegraphics{logicaid}
  
 \end{document}
