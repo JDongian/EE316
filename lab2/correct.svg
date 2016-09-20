@@ -18,8 +18,8 @@
    sodipodi:docname="correct.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/tmp/path4008.png"
-   inkscape:export-xdpi="183.64603"
-   inkscape:export-ydpi="183.64603">
+   inkscape:export-xdpi="400"
+   inkscape:export-ydpi="400">
   <defs
      id="defs6361">
     <inkscape:perspective
@@ -173,9 +173,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="-315.96451"
-     inkscape:cy="-352.76518"
+     inkscape:zoom="1"
+     inkscape:cx="-143.29813"
+     inkscape:cy="-356.35291"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -198,7 +198,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1691,9 +1691,9 @@
     <path
        inkscape:connector-curvature="0"
        style="display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
-       d="m -153.01561,295.61376 -31,0 0,-61.61376 -227.41557,0 0,52.99064 c 8.16668,-0.0225 16.33333,-0.0109 24.5,-6e-5"
+       d="m -284.01561,234 -127.41557,0 0,52.99064 c 8.16668,-0.0225 16.33333,-0.0109 24.5,-6e-5"
        id="path8978-6-6-9-36"
-       sodipodi:nodetypes="cccccc"
+       sodipodi:nodetypes="cccc"
        inkscape:export-xdpi="400"
        inkscape:export-ydpi="400"
        inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png" />
@@ -2529,8 +2529,8 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;line-height:100%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-67.834419"
-       y="660.40662"
+       x="7.8260064"
+       y="661.8208"
        id="text6878-5-0-7-3-9-6"
        sodipodi:linespacing="100%"
        inkscape:export-xdpi="400"
@@ -2538,8 +2538,8 @@
        inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png"><tspan
          sodipodi:role="line"
          id="tspan6880-25-4-1-1-2-7"
-         x="-67.834419"
-         y="660.40662">Y</tspan></text>
+         x="7.8260064"
+         y="661.8208">Y</tspan></text>
     <path
        inkscape:connector-curvature="0"
        style="display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -2804,6 +2804,68 @@
        inkscape:export-ydpi="400"
        cx="-272.95346"
        cy="700.03979"
+       r="2.5"
+       inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png" />
+    <g
+       id="g4178"
+       transform="translate(-35.355339,24.041631)"
+       inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png"
+       inkscape:export-xdpi="400"
+       inkscape:export-ydpi="400">
+      <circle
+         inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png"
+         inkscape:export-ydpi="400"
+         inkscape:export-xdpi="400"
+         id="path4008-7-9-9-7-3-3"
+         style="display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linejoin:miter;stroke-opacity:1;marker:none;enable-background:accumulate"
+         cx="0.93755376"
+         cy="631.03723"
+         r="4" />
+      <g
+         inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png"
+         inkscape:export-ydpi="400"
+         inkscape:export-xdpi="400"
+         transform="translate(-70.312473,563.03719)"
+         inkscape:label="Layer 1"
+         id="g7931-7-0-73-5-1-6">
+        <g
+           id="g2560-4-9-61-3-94-7"
+           inkscape:label="Layer 1"
+           transform="translate(26.5,-39.5)">
+          <path
+             style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m -7.4062497,87.500004 0,2.4375 0,35.124996 0,2.4375 3.15625,0 c 44.3124997,-18.78125 0,0 44.3124997,-18.78125 L 41.25,107.5 40.3125,106.28125 c -44.5624997,-18.781246 0,0 -44.5624997,-18.781246 z m 2.625,2.5 L 37.71875,107.5 -5.2499997,125.75 Z"
+             id="path4973-4-1-29-5-7-5"
+             sodipodi:nodetypes="cccccccccccccc"
+             inkscape:connector-curvature="0" />
+        </g>
+      </g>
+    </g>
+    <path
+       style="display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.99999976;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
+       d="m -30.072881,655.06322 22.062501,0.0312"
+       id="path8984-7-2-4-5"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="400"
+       inkscape:export-ydpi="400"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png" />
+    <path
+       inkscape:connector-curvature="0"
+       style="display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.99999988;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
+       d="m -269,287.53448 68,0 0,8.93104 48,0"
+       id="path8980-1-4-2"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-xdpi="400"
+       inkscape:export-ydpi="400"
+       inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png" />
+    <circle
+       style="display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
+       id="path8986-6-8-2-4-6-8-9"
+       inkscape:export-xdpi="400"
+       inkscape:export-ydpi="400"
+       cx="-268"
+       cy="288"
        r="2.5"
        inkscape:export-filename="/tmp/path8986-6-8-2-4-040.png" />
   </g>
