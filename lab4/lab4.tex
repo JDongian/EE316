@@ -11,6 +11,7 @@
 \usepackage{xcolor}
 \usepackage{circuitikz}
 \usepackage{graphicx}
+\usepackage{tkz-graph} % for drawing vector graphs
 %\usepackage[margin=0.5in]{geometry}
 \usepackage[top=1in,bottom=1in]{geometry}
 
@@ -184,91 +185,127 @@
 \begin{document}
 \includepdf{lab4_coversheet}
 \section{Problem Statement}
-    Design a circuit which will yield the product of two binary numbers, $n_2$
-    and $m_2$, where $00_2 \le n_2 \le 11_2$ and $000_2 \le m_2 \le 101_2$. For
-    example, if $n_2 = 10_2$ and $m_2 = 001_2$, then the product is $n_2 \times
-    m_2 = 10_2 \times 001_2 = 0010_2$. Let the variables A and B represent the
-    first and second digits of $n_2$, respectively (i.e., in this example A = 1
-    and B = 0). Let the variables C, D, and E represent the first, second, and
-    third digits of $m_2$, respectively (in this example C = 0, D = 0, and E =
-    1). Also let the variables W, X, Y, and Z represent the first, second,
-    third, and fourth digits of the product. (In this example W = 0, X = 0, Y =
-    1, and Z = 0.) Assume that $m_2 > 101_2$ never occurs as a circuit input.
-    
+Design a counter which counts in the sequence that has been assigned to you.
+Use D flip-flops and NAND gates. Simulate your design using SimUaid. Given
+sequence: 000, 100, 001, 110, 101, 111, (repeat) 000, ...
+
+\section {Preparatory Questions}
+1. Explain the term Asynchronous input?
+\\\indent
+Asynchronous input refers to input that is not constrained by the clock signal.
+In this context, an asynchronous input could set or reset the flip-flop
+regardless of the status of the clock signal.
+\\\\
+2. How can you set the output of a D Flip-Flop to logic 0 without using its clock
+input?
+\\\indent
+The flip-flop would need to be reset using its asynchronous reset function (R)
+pin. Simply send the a logical 0 to the R pin. Take care that the S pin does
+not have logical high.
+\\\\
+3. How can you set the output of a D Flip-Flop to logic 1 without using its clock
+input?
+\\\indent
+Similar to setting a D flip-flop to logic 0, simply send a logical 0 to pin S.
+
+\section{State Graph}
+We can represent the solution to implement using the state graph below:
+\\\\
+\begin{tikzpicture}
+ \SetUpEdge[lw         = 1.0pt,
+            color      = black,
+            labelcolor = white]
+  \GraphInit[vstyle=Normal] 
+  \SetGraphUnit{3}
+  \tikzset{VertexStyle/.append  style={fill}}
+  %% 000, 100, 001, 110, 101, 111
+  \Vertex[x=1,y=3.46]{000}
+  \Vertex[x=3,y=3.46]{100}
+  \Vertex[x=0,y=1.73]{111}
+  \Vertex[x=4,y=1.73]{001}
+  \Vertex[x=1,y=0]{101}
+  \Vertex[x=3,y=0]{110}
+  \tikzset{EdgeStyle/.style={->}}
+  \Edge(000)(100)
+  \Edge(100)(001)
+  \Edge(001)(110)
+  \Edge(110)(101)
+  \Edge(101)(111)
+  \Edge(111)(000)
+\end{tikzpicture}
+
+\section{State Table}
+We shall start by writing the state table for the sequence
+above. We shall be using D-Flip Flops for this exercise.
+Since its a 3 bit counter, we need 3 D FlipFlops to
+implement the sequence. Next, we create a truth table for
+the D-Input of the flip-flops: 
+\\\\
+\begin{tabular}{a b c | d e f}
+& Present state & & & Next State & &
+\hline
+A & B & C & A+ & B+ & C+ \\
+0 & 0 & 0 & 1  & 0  & 0  \\
+0 & 0 & 1 & 1  & 1  & 0  \\
+0 & 1 & 0 & X  & X  & X  \\
+0 & 1 & 1 & X  & X  & X  \\
+1 & 0 & 0 & 0  & 0  & 1  \\
+1 & 0 & 1 & 1  & 1  & 1  \\
+1 & 1 & 0 & 1  & 0  & 1  \\
+1 & 1 & 1 & 0  & 0  & 0  \\
+\end{tabular} \\
+We now have the truth table for next states. This table
+can get Boolean expressions for logic.
+
+\newpage    
 \section{Karnaugh Map}
-    In the tables that follow, $a = 1$ on the left, $a = 0$ on the right.\\
-    \begin{Karnaugh}
-        \contingut{0000,0010,0100,0110,1000,1010,xxxx,xxxx,0000,0011,0110,1001,1100,1111,xxxx,xxxx}
-    \end{Karnaugh}
-    \begin{Karnaugh}
-        \contingut{0000,0000,0000,0000,0000,0000,xxxx,xxxx,0000,0001,0010,0011,0100,0101,xxxx,xxxx}
-    \end{Karnaugh}
-    \\\\
-    We can break this k-map down for each component $W, X, Y, Z$:
-    \\
-W
-    \begin{Karnaugh}
-        \contingut{0,0,0,0,1,1,x,x,0,0,0,1,1,1,x,x}
-        \implicantcantons[2pt]{yellow}
-        \implicantdaltbaix{0}{9}{green}
-        \implicant{0}{2}{orange}
-    \end{Karnaugh}
-    \begin{Karnaugh}
-        \contingut{0,0,0,0,0,0,x,x,0,0,0,0,0,0,x,x}
-        \implicantcantons[2pt]{yellow}
-        \implicantdaltbaix{0}{9}{green}
-        \implicant{0}{2}{orange}
-        \implicant{0}{10}{blue}
-    \end{Karnaugh}
-    \\$W = A(B + C)(C + D)(C + E)$.
+For a three-bit counter, the Karnaugh maps for the next state are as follows:
+\\
+A+
+\begin{Karnaughvuit}
+    \minterms{0,1,5,6}
+    \maxterms{4,7}
+    \indeterminats{2,3}
+    \implicant{0}{2}{orange}
+    \implicant{1}{5}{green}
+    \implicant{2}{6}{green}
+\end{Karnaughvuit}
+\\
+B+
+\begin{Karnaughvuit}
+    \minterms{1,5}
+    \maxterms{0,4,6,7}
+    \indeterminats{2,3}
+    \implicant{1}{5}{green}
+\end{Karnaughvuit}
+\\
+C+
+\begin{Karnaughvuit}
+    \minterms{4,5,6}
+    \maxterms{0,1,7}
+    \indeterminats{2,3}
+    \implicant{4}{5}{purple}
+    \implicant{2}{6}{green}
+\end{Karnaughvuit}
+\\
+After minimization, we get the following equations:
+\\$
+A+ = A' + B'C + BC'
+\\*
+B+ = B'C
+\\*
+C+ = AB' + BC'$
+
 \newpage
-(continued from previous page)
-    \\
-X
-    \begin{Karnaugh}
-        \contingut{0,0,1,1,0,0,x,x,0,0,1,0,1,1,x,x}
-        \implicant{0}{5}{green}
-        \implicantdaltbaix{0}{9}{yellow}
-        \implicant{9}{11}{orange}
-    \end{Karnaugh}
-    \begin{Karnaugh}
-        \contingut{0,0,0,0,0,0,x,x,0,0,0,0,1,1,x,x}
-        \implicant{0}{5}{green}
-        \implicantdaltbaix{0}{9}{yellow}
-        \implicant{9}{11}{orange}
-        \implicant{3}{10}{blue}
-    \end{Karnaugh}
-    \\$X = (B + D)(C + D)(B' + C + E')(A + C)$
-\\\\
-Y
-    \begin{Karnaugh}
-        \contingut{0,1,0,1,0,1,x,x,0,1,1,0,0,1,x,x}
-        %\implicantcostats{0}{6}{green}
-        %\implicant{0}{8}{yellow}
-        %\implicant{11}{11}{red}
-        \implicant{14}{10}{green}
-        \implicant{1}{7}{purple}
-        \implicant{1}{9}{red}
-    \end{Karnaugh}
-    \begin{Karnaugh}
-        \contingut{0,0,0,0,0,0,x,x,0,0,1,1,0,0,x,x}
-        \implicant{14}{10}{green}
-        \implicant{15}{10}{blue}
-        %\implicantcostats{0}{6}{green}
-        %\implicant{0}{6}{blue}
-        %\implicant{0}{9}{purple}
-    \end{Karnaugh}
-    \\$Y = A'BD + AB'E + AD'E + BDE'$.
-\\\\
-Z
-    \begin{Karnaugh}
-        \contingut{0,0,0,0,0,0,x,x,0,1,0,1,0,1,x,x}
-        \implicant{13}{11}{green}
-    \end{Karnaugh}
-    \begin{Karnaugh}
-        \contingut{0,0,0,0,0,0,x,x,0,1,0,1,0,1,x,x}
-        \implicant{13}{11}{green}
-    \end{Karnaugh}
-    \\$Z = BE$
+\section{Circuit}
+It's time to draw the circuit in SimUAid using only D-Flip-Flops, NAND gates,
+and inverters. Here is a logic circuit for the above truth tables. Note that
+the S and R inputs are active low.
+\\
+\includegraphics[width=400px]{ckt}
+\\
+Note that if needed, the single inverter used could be substituted with a single NAND gate.
+
+
 
 \end{document}
