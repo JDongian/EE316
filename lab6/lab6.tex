@@ -1,0 +1,373 @@
+\documentclass{report}
+\usepackage{tikz}
+\usepackage{pdfpages}
+\usetikzlibrary{matrix,calc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{centernot}
+\usepackage{scalerel}
+%\usepackage{stackengine}
+\usepackage{xcolor}
+\usepackage{circuitikz}
+\usepackage{graphicx}
+\usepackage{tkz-graph} % for drawing vector graphs
+%\usepackage[margin=0.5in]{geometry}
+\usepackage[top=1in,bottom=1in]{geometry}
+%\listfiles
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=VHDL,                 % the language of the code
+  morekeywords={*,...},           % if you want to add more keywords to the set
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\newcommand\showdiv[1]{\overline{\smash{\hstretch{.5}{)}\mkern-3.2mu\hstretch{.5}{)}}#1}}
+\newcommand\ph[1]{\textcolor{white}{#1}}
+
+
+\makeatletter
+% we use \prefix@<level> only if it is defined
+\renewcommand{\@seccntformat}[1]{%
+  \ifcsname prefix@#1\endcsname
+    \csname prefix@#1\endcsname
+  \else
+    \csname the#1\endcsname\quad
+  \fi}
+% define \prefix@section
+\newcommand\prefix@section{}
+\newcommand\prefix@subsection{}
+\makeatother
+
+
+%isolated term
+%#1 - Optional. Space between node and grouping line. Default=0
+%#2 - node
+%#3 - filling color
+\newcommand{\implicantsol}[3][0]{
+    \draw[rounded corners=3pt, fill=#3, opacity=0.3] ($(#2.north west)+(135:#1)$) rectangle ($(#2.south east)+(-45:#1)$);
+    }
+
+
+%internal group
+%#1 - Optional. Space between node and grouping line. Default=0
+%#2 - top left node
+%#3 - bottom right node
+%#4 - filling color
+\newcommand{\implicant}[4][0]{
+    \draw[rounded corners=3pt, fill=#4, opacity=0.3] ($(#2.north west)+(135:#1)$) rectangle ($(#3.south east)+(-45:#1)$);
+    }
+
+%group lateral borders
+%#1 - Optional. Space between node and grouping line. Default=0
+%#2 - top left node
+%#3 - bottom right node
+%#4 - filling color
+\newcommand{\implicantcostats}[4][0]{
+    \draw[rounded corners=3pt, fill=#4, opacity=0.3] ($(rf.east |- #2.north)+(90:#1)$)-| ($(#2.east)+(0:#1)$) |- ($(rf.east |- #3.south)+(-90:#1)$);
+    \draw[rounded corners=3pt, fill=#4, opacity=0.3] ($(cf.west |- #2.north)+(90:#1)$) -| ($(#3.west)+(180:#1)$) |- ($(cf.west |- #3.south)+(-90:#1)$);
+}
+
+%group top-bottom borders
+%#1 - Optional. Space between node and grouping line. Default=0
+%#2 - top left node
+%#3 - bottom right node
+%#4 - filling color
+\newcommand{\implicantdaltbaix}[4][0]{
+    \draw[rounded corners=3pt, fill=#4, opacity=0.3] ($(cf.south -| #2.west)+(180:#1)$) |- ($(#2.south)+(-90:#1)$) -| ($(cf.south -| #3.east)+(0:#1)$);
+    \draw[rounded corners=3pt, fill=#4, opacity=0.3] ($(rf.north -| #2.west)+(180:#1)$) |- ($(#3.north)+(90:#1)$) -| ($(rf.north -| #3.east)+(0:#1)$);
+}
+
+%group corners
+%#1 - Optional. Space between node and grouping line. Default=0
+%#2 - filling color
+\newcommand{\implicantcantons}[2][0]{
+    \draw[rounded corners=3pt, opacity=.3] ($(rf.east |- 0.south)+(-90:#1)$) -| ($(0.east |- cf.south)+(0:#1)$);
+    \draw[rounded corners=3pt, opacity=.3] ($(rf.east |- 8.north)+(90:#1)$) -| ($(8.east |- rf.north)+(0:#1)$);
+    \draw[rounded corners=3pt, opacity=.3] ($(cf.west |- 2.south)+(-90:#1)$) -| ($(2.west |- cf.south)+(180:#1)$);
+    \draw[rounded corners=3pt, opacity=.3] ($(cf.west |- 10.north)+(90:#1)$) -| ($(10.west |- rf.north)+(180:#1)$);
+    \fill[rounded corners=3pt, fill=#2, opacity=.3] ($(rf.east |- 0.south)+(-90:#1)$) -|  ($(0.east |- cf.south)+(0:#1)$) [sharp corners] ($(rf.east |- 0.south)+(-90:#1)$) |-  ($(0.east |- cf.south)+(0:#1)$) ;
+    \fill[rounded corners=3pt, fill=#2, opacity=.3] ($(rf.east |- 8.north)+(90:#1)$) -| ($(8.east |- rf.north)+(0:#1)$) [sharp corners] ($(rf.east |- 8.north)+(90:#1)$) |- ($(8.east |- rf.north)+(0:#1)$) ;
+    \fill[rounded corners=3pt, fill=#2, opacity=.3] ($(cf.west |- 2.south)+(-90:#1)$) -| ($(2.west |- cf.south)+(180:#1)$) [sharp corners]($(cf.west |- 2.south)+(-90:#1)$) |- ($(2.west |- cf.south)+(180:#1)$) ;
+    \fill[rounded corners=3pt, fill=#2, opacity=.3] ($(cf.west |- 10.north)+(90:#1)$) -| ($(10.west |- rf.north)+(180:#1)$) [sharp corners] ($(cf.west |- 10.north)+(90:#1)$) |- ($(10.west |- rf.north)+(180:#1)$) ;
+}
+
+%Empty Karnaugh map 4x4
+\newenvironment{Karnaugh}%
+{
+\begin{tikzpicture}[baseline=(current bounding box.north),scale=0.8]
+\draw (0,0) grid (4,4);
+\draw (0,4) -- node [pos=0.7,above right,anchor=south west] {de} node [pos=0.7,below left,anchor=north east] {bc} ++(135:1);
+%
+\matrix (mapa) [matrix of nodes,
+        column sep={0.8cm,between origins},
+        row sep={0.8cm,between origins},
+        every node/.style={minimum size=0.3mm},
+        anchor=8.center,
+        ampersand replacement=\&] at (0.5,0.5)
+{
+                       \& |(c00)| 00         \& |(c01)| 01         \& |(c11)| 11         \& |(c10)| 10         \& |(cf)| \phantom{00} \\
+|(r00)| 00             \& |(0)|  \phantom{0} \& |(1)|  \phantom{0} \& |(3)|  \phantom{0} \& |(2)|  \phantom{0} \&                     \\
+|(r01)| 01             \& |(4)|  \phantom{0} \& |(5)|  \phantom{0} \& |(7)|  \phantom{0} \& |(6)|  \phantom{0} \&                     \\
+|(r11)| 11             \& |(12)| \phantom{0} \& |(13)| \phantom{0} \& |(15)| \phantom{0} \& |(14)| \phantom{0} \&                     \\
+|(r10)| 10             \& |(8)|  \phantom{0} \& |(9)|  \phantom{0} \& |(11)| \phantom{0} \& |(10)| \phantom{0} \&                     \\
+|(rf) | \phantom{00}   \&                    \&                    \&                    \&                    \&                     \\
+};
+}%
+{
+\end{tikzpicture}
+}
+
+% K map q2q3\Xq1
+\newenvironment{KarnaughG}%
+{
+\begin{tikzpicture}[baseline=(current bounding box.north),scale=0.8]
+\draw (0,0) grid (4,4);
+\draw (0,4) -- node [pos=0.9,above right,anchor=south west] {$XQ_1$} node [pos=0.9,below left,anchor=north east] {$Q_2Q_3$} ++(135:1);
+%
+\matrix (mapa) [matrix of nodes,
+        column sep={0.8cm,between origins},
+        row sep={0.8cm,between origins},
+        every node/.style={minimum size=0.3mm},
+        anchor=8.center,
+        ampersand replacement=\&] at (0.5,0.5)
+{
+                       \& |(c00)| 00         \& |(c01)| 01         \& |(c11)| 11         \& |(c10)| 10         \& |(cf)| \phantom{00} \\
+|(r00)| 00             \& |(0)|  \phantom{0} \& |(1)|  \phantom{0} \& |(3)|  \phantom{0} \& |(2)|  \phantom{0} \&                     \\
+|(r01)| 01             \& |(4)|  \phantom{0} \& |(5)|  \phantom{0} \& |(7)|  \phantom{0} \& |(6)|  \phantom{0} \&                     \\
+|(r11)| 11             \& |(12)| \phantom{0} \& |(13)| \phantom{0} \& |(15)| \phantom{0} \& |(14)| \phantom{0} \&                     \\
+|(r10)| 10             \& |(8)|  \phantom{0} \& |(9)|  \phantom{0} \& |(11)| \phantom{0} \& |(10)| \phantom{0} \&                     \\
+|(rf) | \phantom{00}   \&                    \&                    \&                    \&                    \&                     \\
+};
+}%
+{
+\end{tikzpicture}
+}
+
+%Empty Karnaugh map 2x4
+\newenvironment{Karnaughvuit}%
+{
+\begin{tikzpicture}[baseline=(current bounding box.north),scale=0.8]
+\draw (0,0) grid (4,2);
+\draw (0,2) -- node [pos=0.7,above right,anchor=south west] {bc} node [pos=0.7,below left,anchor=north east] {a} ++(135:1);
+%
+\matrix (mapa) [matrix of nodes,
+        column sep={0.8cm,between origins},
+        row sep={0.8cm,between origins},
+        every node/.style={minimum size=0.3mm},
+        anchor=4.center,
+        ampersand replacement=\&] at (0.5,0.5)
+{
+                      \& |(c00)| 00         \& |(c01)| 01         \& |(c11)| 11         \& |(c10)| 10         \& |(cf)| \phantom{00} \\
+|(r00)| 0             \& |(0)|  \phantom{0} \& |(1)|  \phantom{0} \& |(3)|  \phantom{0} \& |(2)|  \phantom{0} \&                     \\
+|(r01)| 1             \& |(4)|  \phantom{0} \& |(5)|  \phantom{0} \& |(7)|  \phantom{0} \& |(6)|  \phantom{0} \&                     \\
+|(rf) | \phantom{00}  \&                    \&                    \&                    \&                    \&                     \\
+};
+}%
+{
+\end{tikzpicture}
+}
+
+%Empty Karnaugh map 2x2
+\newenvironment{Karnaughquatre}%
+{
+\begin{tikzpicture}[baseline=(current bounding box.north),scale=0.8]
+\draw (0,0) grid (2,2);
+\draw (0,2) -- node [pos=0.7,above right,anchor=south west] {b} node [pos=0.7,below left,anchor=north east] {a} ++(135:1);
+%
+\matrix (mapa) [matrix of nodes,
+        column sep={0.8cm,between origins},
+        row sep={0.8cm,between origins},
+        every node/.style={minimum size=0.3mm},
+        anchor=2.center,
+        ampersand replacement=\&] at (0.5,0.5)
+{
+          \& |(c00)| 0          \& |(c01)| 1  \\
+|(r00)| 0 \& |(0)|  \phantom{0} \& |(1)|  \phantom{0} \\
+|(r01)| 1 \& |(2)|  \phantom{0} \& |(3)|  \phantom{0} \\
+};
+}%
+{
+\end{tikzpicture}
+}
+
+%Defines 8 or 16 values (0,1,X)
+\newcommand{\contingut}[1]{%
+\foreach \x [count=\xi from 0]  in {#1}
+     \path (\xi) node {\x};
+}
+
+%Places 1 in listed positions
+\newcommand{\minterms}[1]{%
+    \foreach \x in {#1}
+        \path (\x) node {1};
+}
+
+%Places 0 in listed positions
+\newcommand{\maxterms}[1]{%
+    \foreach \x in {#1}
+        \path (\x) node {0};
+}
+
+%Places X in listed positions
+\newcommand{\indeterminats}[1]{%
+    \foreach \x in {#1}
+        \path (\x) node {X};
+}
+
+\begin{document}
+\includepdf{lab6_coversheet}
+
+\section{Part 1}
+\subsection{Problem Statement}
+Write a VHDL module to implement a circuit that can generate a clock signal
+whose time period is a multiple of the input clock. A control signal F
+determines the multiplying factor. If F = 0, the output signal has a time
+period twice that of the input clock. If F = 1, the output signal has a time
+period three times that of the input clock. The portion of the clock cycle when
+the clock is 1 may be longer than the portion when it is 0, or vice versa. Use
+a counter with an active-high synchronous clear input.
+
+
+\subsection{State Diagram}
+\begin{tikzpicture}
+ \SetUpEdge[lw         = 1.0pt,
+            color      = black,
+            labelcolor = white]
+  \GraphInit[vstyle=Normal] 
+  \SetGraphUnit{3}
+  \tikzset{VertexStyle/.append  style={fill}}
+  \Vertex[x=2,y=6.92]{0}
+  \Vertex[x=6,y=6.92]{1}
+  \Vertex[x=0,y=3.46]{5}
+  \Vertex[x=8,y=3.46]{2}
+  \Vertex[x=2,y=0]{4}
+  \Vertex[x=6,y=0]{3}
+  \tikzset{EdgeStyle/.style={->,relative=true,in=160,out=20}}
+    \Edge[label=$1/0$](0)(1)
+    \Edge[label=$1/0$](1)(2)
+    \Edge[label=$1/0$](2)(3)
+    \Edge[label=$1/1$](3)(4)
+    \Edge[label=$1/1$](4)(5)
+    \Edge[label=$1/1$](5)(0)
+
+  \tikzset{EdgeStyle/.style={->,relative=true,in=200,out=-20}}
+    \Edge[label=$0/0$](0)(1)
+    \Edge[label=$0/1$](4)(5)
+    \Edge[label=$0/1$](5)(0)
+
+  \tikzset{EdgeStyle/.style={->,pos=0.2,relative=true,in=180,out=0}}
+    \Edge[label=$0/0$](1)(4)
+
+  \tikzset{EdgeStyle/.style={->,pos=0.2,relative=true,in=160,out=20}}
+    \Edge[label=$0/1$](2)(0)
+    \Edge[label=$0/1$](3)(0)
+\end{tikzpicture}
+
+\subsection{Block Diagram}
+The code is simply an implementation of an FSM with 6 states.
+\\
+\includegraphics[width=223px]{block}
+
+\subsection{Code}
+\lstinputlisting{six.vhdl}
+
+\subsection{Sample Testbench}
+\lstinputlisting{six_tb.vhdl}
+
+\subsection{Waveforms}
+The given inputs are tested first. Then reset is tested. Then my own test results are included.
+\includegraphics[width=\textwidth]{wave}
+
+\newpage
+\section{Part 2}
+\subsection{Problem Statement}
+Design a sequential circuit which adds two to a binary number in the
+range 0000 through 1. The input and output should be serial with the
+least significant bit first. Find a state table with a minimum number of
+states. Design the circuit using NAND gates, NOR gates, and three D
+flip-flops. Any solution which is minimal for your state assignment and
+uses 10 or fewer gates and inverters is acceptable.
+
+\section{State Graph}
+\begin{tikzpicture}
+ \SetUpEdge[lw         = 1.0pt,
+            color      = black,
+            labelcolor = white]
+  \GraphInit[vstyle=Normal] 
+  \SetGraphUnit{3}
+  \tikzset{VertexStyle/.append  style={fill}}
+  \Vertex[x=2,y=6.92]{0}
+  \Vertex[x=6,y=6.92]{1}
+  \Vertex[x=0,y=3.46]{4}
+  \Vertex[x=4,y=4.3]{5}
+  \Vertex[x=2,y=0]{2}
+  \Vertex[x=4,y=1.5]{3}
+
+  % 0
+  \tikzset{EdgeStyle/.style={->,relative=true,in=150,out=30}}
+    \Edge[label=$0/0$](0)(1)
+  \tikzset{EdgeStyle/.style={->,relative=true,in=210,out=-30}}
+    \Edge[label=$1/1$](0)(1)
+
+  % 1
+  \tikzset{EdgeStyle/.style={->,bend left=60}}
+    \Edge[label=$0/1$](1)(2)
+  \tikzset{EdgeStyle/.style={->,bend left=30}}
+    \Edge[label=$1/0$](1)(3)
+
+  % 2
+  \tikzset{EdgeStyle/.style={->,relative=true,in=150,out=30}}
+    \Edge[label=$0/0$](2)(4)
+  \tikzset{EdgeStyle/.style={->,relative=true,in=210,out=-30}}
+    \Edge[label=$1/1$](2)(4)
+
+  % 3
+  \tikzset{EdgeStyle/.style={->,relative=true,in=210,out=-30}}
+    \Edge[label=$0/1$](3)(4)
+  \tikzset{EdgeStyle/.style={->}}
+    \Edge[label=$1/0$](3)(5)
+
+  % 4
+  \tikzset{EdgeStyle/.style={->,relative=true,in=150,out=30}}
+    \Edge[label=$0/0$](4)(0)
+  \tikzset{EdgeStyle/.style={->,relative=true,in=210,out=-30}}
+    \Edge[label=$1/1$](4)(0)
+
+  % 5
+  \tikzset{EdgeStyle/.style={->}}%,relative=true,in=150,out=30}}
+    \Edge[label=$0/1$](5)(0)
+\end{tikzpicture}
+
+
+\subsection{VHDL Code}
+Below is simply an implementation of the state graph:
+\lstinputlisting{five.vhdl}
+
+\subsection{Waveforms}
+\includegraphics[width=\textwidth]{wave2}
+
+\end{document}

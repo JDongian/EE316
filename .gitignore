@@ -180,3 +180,6 @@ TSWLatexianTemp*
 *~[0-9]*
 
 *.sw*
+
+*.o
+*.vcd
